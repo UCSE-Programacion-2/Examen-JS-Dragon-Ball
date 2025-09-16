@@ -1,0 +1,336 @@
+:root {
+    --dragonball-orange: #ff6b35;
+    --dragonball-blue: #1e3a8a;
+    --dragonball-yellow: #fbbf24;
+    --dragonball-red: #dc2626;
+    --background: #f8fafc;
+    --text: #1f2937;
+    --accent-gold: #f59e0b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Orbitron', 'Arial', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.dragonball-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background: linear-gradient(135deg, var(--dragonball-orange), var(--dragonball-red));
+    color: white;
+    padding: 25px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    border: 4px solid var(--dragonball-yellow);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    color: var(--dragonball-yellow);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.score {
+    text-align: left;
+}
+
+.score span {
+    font-size: 1rem;
+    opacity: 0.9;
+    font-weight: 700;
+}
+
+.score h2 {
+    font-size: 2.5rem;
+    margin-top: 8px;
+    color: var(--dragonball-yellow);
+    text-shadow: 2px 2px 0 #000;
+}
+
+.score-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.saga-select {
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 2px solid var(--dragonball-yellow);
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.saga-select option {
+    background: var(--dragonball-blue);
+    color: white;
+}
+
+.actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+button {
+    background: linear-gradient(135deg, var(--dragonball-blue), #1e40af);
+    color: white;
+    border: none;
+    padding: 18px;
+    border-radius: 15px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #1e40af, var(--dragonball-blue));
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+button i {
+    font-size: 1.5rem;
+    color: var(--dragonball-yellow);
+}
+
+.quiz {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    border: 3px solid var(--dragonball-orange);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.quiz h3 {
+    margin-bottom: 20px;
+    color: var(--text);
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: 700;
+}
+
+.character-view {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 30px;
+    align-items: center;
+}
+
+.image-wrapper {
+    background: radial-gradient(circle at 50% 50%, #ffffff, #f1f5f9);
+    border: 4px solid var(--dragonball-orange);
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+#characterImage {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.guess-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.guess-form input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 3px solid var(--dragonball-orange);
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.guess-form input:focus {
+    outline: none;
+    border-color: var(--dragonball-yellow);
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
+}
+
+.guess-form button {
+    width: 100%;
+    background: linear-gradient(135deg, var(--dragonball-red), #b91c1c);
+    font-size: 1.1rem;
+    padding: 15px;
+}
+
+.feedback {
+    margin-top: 15px;
+    min-height: 25px;
+    font-weight: 600;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.feedback.correct {
+    background: #dcfce7;
+    color: #166534;
+    border: 2px solid #22c55e;
+}
+
+.feedback.incorrect {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 2px solid #ef4444;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 600px;
+    margin: 10% auto;
+    border: 4px solid var(--dragonball-orange);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h3 {
+    margin-bottom: 20px;
+    color: var(--dragonball-blue);
+    font-size: 1.8rem;
+    text-align: center;
+    font-weight: 700;
+}
+
+.hint {
+    display: grid;
+    gap: 12px;
+    font-size: 1.1rem;
+}
+
+.hint div {
+    padding: 10px;
+    background: #f8fafc;
+    border-radius: 8px;
+    border-left: 4px solid var(--dragonball-orange);
+}
+
+.history-container {
+    display: grid;
+    gap: 12px;
+    max-height: 400px;
+    overflow: auto;
+}
+
+.history-item {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    gap: 15px;
+    padding: 15px;
+    background: #f8fafc;
+    border-radius: 10px;
+    border-left: 4px solid var(--dragonball-orange);
+    align-items: center;
+}
+
+.history-item span {
+    font-weight: 600;
+}
+
+.history-item .correct {
+    color: #22c55e;
+}
+
+.history-item .incorrect {
+    color: #ef4444;
+}
+
+.cerrar-modal {
+    width: 100%;
+    margin-top: 20px;
+    background: linear-gradient(135deg, #6b7280, #4b5563);
+}
+
+/* Animaciones */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+button:active {
+    animation: pulse 0.2s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .character-view {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .image-wrapper {
+        margin: 0 auto;
+    }
+    
+    #characterImage {
+        width: 200px;
+        height: 200px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .actions {
+        grid-template-columns: 1fr;
+    }
+}
