@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "nombre": "Goku",
+    "saga": "dragon-ball-z",
+    "raza": "Saiyajin",
+    "planeta": "Planeta Vegeta",
+    "kiBase": "9000+",
+    "transformaciones": "Super Saiyajin 1, 2, 3, Blue, Ultra Instinto",
+    "imagen": "https://dragonball-api.com/characters/goku_normal.webp",
+    "primeraLetra": "G"
+  },
+  {
+    "id": 2,
+    "nombre": "Vegeta",
+    "saga": "dragon-ball-z",
+    "raza": "Saiyajin",
+    "planeta": "Planeta Vegeta",
+    "kiBase": "18000",
+    "transformaciones": "Super Saiyajin, Majin Vegeta, Blue, Ultra Ego",
+    "imagen": "https://dragonball-api.com/characters/vegeta_normal.webp",
+    "primeraLetra": "V"
+  },
+  {
+    "id": 3,
+    "nombre": "Piccolo",
+    "saga": "dragon-ball-z",
+    "raza": "Namekiano",
+    "planeta": "Namek",
+    "kiBase": "3500",
+    "transformaciones": "Fusión con Nail, Kami-sama, Orange Piccolo",
+    "imagen": "https://dragonball-api.com/characters/picolo_normal.webp",
+    "primeraLetra": "P"
+  },
+  {
+    "id": 4,
+    "nombre": "Bulma",
+    "saga": "dragon-ball",
+    "raza": "Humana",
+    "planeta": "Tierra",
+    "kiBase": "5",
+    "transformaciones": "Ninguna (Científica de Capsule Corp)",
+    "imagen": "https://dragonball-api.com/characters/bulma.webp",
+    "primeraLetra": "B"
+  },
+  {
+    "id": 5,
+    "nombre": "Freezer",
+    "saga": "dragon-ball-z",
+    "raza": "Demonio del Frío",
+    "planeta": "Planeta 79",
+    "kiBase": "530000",
+    "transformaciones": "Forma Final, Golden Freezer, Black Freezer",
+    "imagen": "https://dragonball-api.com/characters/Freezer.webp",
+    "primeraLetra": "F"
+  },
+  {
+    "id": 6,
+    "nombre": "Cell",
+    "saga": "dragon-ball-z",
+    "raza": "Bio-Androide",
+    "planeta": "Tierra (Laboratorio Dr. Gero)",
+    "kiBase": "Desconocido",
+    "transformaciones": "Imperfecto, Semi-Perfecto, Perfecto",
+    "imagen": "https://dragonball-api.com/characters/cell_primera_forma.webp",
+    "primeraLetra": "C"
+  },
+  {
+    "id": 7,
+    "nombre": "Trunks",
+    "saga": "dragon-ball-z",
+    "raza": "Híbrido Saiyajin-Humano",
+    "planeta": "Tierra",
+    "kiBase": "Super Saiyajin",
+    "transformaciones": "Super Saiyajin del Futuro, SSJ Rage",
+    "imagen": "https://dragonball-api.com/characters/Trunks_del_Futuro_Anime.webp",
+    "primeraLetra": "T"
+  },
+  {
+    "id": 8,
+    "nombre": "Bills",
+    "saga": "dragon-ball-super",
+    "raza": "Dios de la Destrucción",
+    "planeta": "Templo de Bills",
+    "kiBase": "Divino",
+    "transformaciones": "Hakai, Poder de la Destrucción",
+    "imagen": "https://dragonball-api.com/characters/bills.webp",
+    "primeraLetra": "B"
+  },
+  {
+    "id": 9,
+    "nombre": "Krilin",
+    "saga": "dragon-ball",
+    "raza": "Humano",
+    "planeta": "Tierra",
+    "kiBase": "1770",
+    "transformaciones": "Kienzan Master, Potencial desbloqueado",
+    "imagen": "https://dragonball-api.com/characters/Krilin_Universo7.webp",
+    "primeraLetra": "K"
+  },
+  {
+    "id": 10,
+    "nombre": "Gogeta",
+    "saga": "dragon-ball-gt",
+    "raza": "Fusión Saiyajin",
+    "planeta": "Tierra",
+    "kiBase": "Incalculable",
+    "transformaciones": "Super Saiyajin 4, Blue",
+    "imagen": "https://dragonball-api.com/characters/gogeta.webp",
+    "primeraLetra": "G"
+  }
+]

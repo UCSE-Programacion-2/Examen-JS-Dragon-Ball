@@ -1,16 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Examen JS - Dragon Ball Quiz</title>
+    <title>Dragon Ball Quiz - Examen de JavaScript</title>
     <link rel="stylesheet" href="./css/styles.css" />
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -18,14 +14,14 @@
   <body>
     <div class="dragonball-container">
       <header>
-        <h1>Dragon Ball Quiz</h1>
+        <h1>🐉 Dragon Ball Quiz</h1>
         <div class="score">
           <span>Poder de Pelea</span>
           <div class="score-container">
             <h2 id="score">0</h2>
             <select id="sagaSelector" class="saga-select">
-              <option value="dragon-ball">Dragon Ball</option>
               <option value="dragon-ball-z">Dragon Ball Z</option>
+              <option value="dragon-ball">Dragon Ball</option>
               <option value="dragon-ball-gt">Dragon Ball GT</option>
               <option value="dragon-ball-super">Dragon Ball Super</option>
             </select>
@@ -34,60 +30,70 @@
       </header>
 
       <section class="actions">
-        <button id="btnNuevo">
+        <button type="button" id="btnNuevo" class="btn-action">
           <i class="fas fa-fist-raised"></i>
-          Nuevo Personaje
+          Nuevo Guerrero
         </button>
-        <button id="btnPista">
+        <button type="button" id="btnPista" class="btn-action">
           <i class="fas fa-eye"></i>
           Pista
         </button>
-        <button id="btnHistorial">
+        <button type="button" id="btnHistorial" class="btn-action">
           <i class="fas fa-scroll"></i>
           Historial
         </button>
       </section>
 
       <section class="quiz" id="quizSection">
-        <h3>¿Quién es este personaje?</h3>
+        <h3>¿Quién es este guerrero?</h3>
         <div class="character-view">
           <div class="image-wrapper">
-            <!-- La imagen del personaje se cargará dinámicamente -->
-            <img id="characterImage" alt="personaje" />
+            <img id="characterImage" class="silueta" alt="Silueta del guerrero" />
           </div>
-          <div class="guess-form">
+          <form id="formQuiz" class="guess-form">
             <input
               type="text"
               id="guessInput"
-              placeholder="Escribe el nombre del personaje..."
+              placeholder="Escribe el nombre del guerrero..."
+              autocomplete="off"
+              required
             />
-            <button id="confirmarRespuesta">Confirmar</button>
-          </div>
+            <button type="submit" id="confirmarRespuesta">Confirmar</button>
+          </form>
           <p id="feedback" class="feedback"></p>
         </div>
       </section>
 
       <!-- Modal Pista -->
-      <div id="modalPista" class="modal">
+      <div id="modalPista" class="modal hidden">
         <div class="modal-content">
-          <h3>Pista</h3>
-          <div id="hintContent" class="hint"></div>
-          <button class="cerrar-modal">Cerrar</button>
+          <div class="modal-header">
+            <h3>👁️ Pista del Guerrero</h3>
+            <button type="button" class="cerrar-modal">&times;</button>
+          </div>
+          <div id="hintContent" class="hint-body"></div>
+          <button type="button" class="btn-cerrar cerrar-modal">Cerrar</button>
         </div>
       </div>
 
       <!-- Modal Historial -->
-      <div id="modalHistorial" class="modal">
+      <div id="modalHistorial" class="modal hidden">
         <div class="modal-content">
-          <h3>Historial de Batallas</h3>
-          <div class="history-container" id="historyContainer">
-            <!-- El historial se cargará dinámicamente -->
+          <div class="modal-header">
+            <h3>📜 Historial de Batallas</h3>
+            <button type="button" class="cerrar-modal">&times;</button>
           </div>
-          <button class="cerrar-modal">Cerrar</button>
+          <div class="history-container" id="historyContainer"></div>
+          <div class="modal-footer">
+            <button type="button" id="btnLimpiarHistorial" class="btn-outline">
+              Limpiar Historial
+            </button>
+            <button type="button" class="btn-cerrar cerrar-modal">Cerrar</button>
+          </div>
         </div>
       </div>
     </div>
 
-    <script src="./js/app.js"></script>
+    <script type="module" src="./js/script.js"></script>
   </body>
 </html>

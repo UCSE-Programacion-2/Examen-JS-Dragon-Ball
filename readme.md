@@ -1,111 +1,98 @@
-# Examen JS – Dragon Ball Quiz
+# 🐉 Examen: Buscador y Comparador de Personajes de Dragon Ball con JavaScript
 
-## Objetivo
-Construir un mini-quiz: "¿Quién es este personaje?" que:
-- Obtenga un personaje aleatorio por saga desde la API de Dragon Ball.
-- Permita ingresar el nombre y valide si es correcto.
-- Gestione puntaje (Poder de Pelea) e historial en `localStorage`.
-- Muestre pistas (raza, planeta, transformaciones, etc.).
+## 📋 Objetivo del Examen
 
-## Endpoints usados
-- `GET https://dragonball-api.com/api/characters` – Lista de personajes
-- `GET https://dragonball-api.com/api/characters/{id}` – Datos específicos del personaje
-- Documentación: [Dragon Ball API](https://dragonball-api.com/)
+En este examen práctico deberás desarrollar una **aplicación web interactiva para buscar, filtrar y comparar personajes del universo de Dragon Ball**, conectando una interfaz frontend desarrollada con **HTML, CSS y JavaScript Vanilla** a un **servidor backend local en Node.js/Express**.
 
-## Estructura esperada del proyecto
-- `index.html`: maquetado, header con puntaje (Poder de Pelea) y selector de saga, acciones (Nuevo Personaje, Pista, Historial), sección de quiz con imagen, input y feedback, modales de pista e historial.
-- `css/styles.css`: estilos base, colores Dragon Ball (naranja/azul/amarillo), tipografía "Orbitron", estados de interacción y modales.
-- `js/app.js`: implementación completa de la lógica del examen (sin librerías externas).
+La aplicación debe permitir:
 
-## Requisitos funcionales (obligatorios)
-1. Al cargar la página se debe mostrar un personaje aleatorio correspondiente a la saga seleccionada.
-2. El botón "Nuevo Personaje" debe cargar otro personaje aleatorio de la saga actual.
-3. Al confirmar una respuesta:
-   - Si el nombre coincide exactamente con el oficial de la API (sin mayúsculas/minúsculas), sumar Poder de Pelea.
-   - Si no coincide, restar Poder de Pelea sin que baje de cero.
-   - Debe mostrarse un mensaje de feedback con el resultado.
-4. Pista debe mostrar: raza, planeta de origen, transformaciones conocidas y primera letra del nombre del personaje actual.
-5. Historial debe listar los intentos (fecha/hora, saga, nombre real, si fue correcto y el intento ingresado), persistiendo en `localStorage`.
-6. El Poder de Pelea debe persistir en `localStorage` y reflejarse en pantalla en todo momento.
-7. Debe manejarse el estado de carga (deshabilitar acciones mientras se hace la petición) y errores de red con mensajes claros.
-
-## Requisitos técnicos
-- Usar `fetch` para consumir la API de Dragon Ball.
-- No utilizar frameworks ni librerías de JS; sólo JavaScript nativo.
-- No modificar la estructura básica de `index.html` (puedes agregar atributos necesarios, pero mantén las secciones y elementos claves).
-- Mantener estilos coherentes con la estética Dragon Ball provista.
-
-## Almacenamiento local
-- Clave sugerida para Poder de Pelea: `db_power_level` (número entero ≥ 0).
-- Clave sugerida para historial: `db_battle_history` (arreglo con objetos de intento con fecha, saga, nombre real, acierto y valor ingresado).
-- Límite sugerido del historial: 50 elementos (el más reciente primero).
-
-## Selección por saga
-- El selector de saga debe filtrar personajes según su saga correspondiente:
-  - Dragon Ball: personajes de la saga original
-  - Dragon Ball Z: personajes de la saga Z
-  - Dragon Ball GT: personajes de la saga GT
-  - Dragon Ball Super: personajes de la saga Super
-- Debes manejar casos donde no hay personajes disponibles para una saga específica.
-
-## Validaciones y UX
-- Validar entrada vacía antes de chequear la respuesta.
-- Comparar insensible a mayúsculas/minúsculas.
-- Mantener el input enfocado al cargar un nuevo personaje.
-- Proveer mensajes de error entendibles ante fallos de red o datos.
-- Deshabilitar botones durante las cargas para prevenir acciones repetidas.
-- Mostrar feedback visual diferenciado para respuestas correctas e incorrectas.
-
-## Accesibilidad mínima
-- Asegurar que los elementos interactivos sean alcanzables por teclado.
-- Proveer texto alternativo en la imagen del personaje con su nombre.
-- Usar colores con suficiente contraste para el texto.
-
-## Pasos sugeridos de implementación
-1. Preparación del estado: Poder de Pelea actual, personaje actual, bandera de carga.
-2. Lectura inicial desde `localStorage` y sincronización del puntaje con la UI.
-3. Obtención de la lista de personajes desde la API y filtrado por saga.
-4. Selección aleatoria de un personaje del filtro aplicado.
-5. Solicitud de datos específicos del personaje seleccionado.
-6. Renderizado de la imagen y reseteo del input/feedback.
-7. Verificación de la respuesta y actualización de Poder de Pelea/historial.
-8. Renderizado del historial en el modal correspondiente.
-9. Cálculo y presentación de la pista en el modal correspondiente.
-10. Manejo de errores y estados de deshabilitado de botones.
-
-## Criterios de evaluación (rúbrica)
-- Correctitud funcional del flujo principal (nuevo personaje, responder, Poder de Pelea, pista, historial).
-- Uso adecuado de `fetch` y manejo de errores de red.
-- Persistencia correcta en `localStorage` y sincronización con la UI.
-- Filtrado correcto de personajes por saga.
-- Estructura del código: funciones claras, nombres descriptivos y bajo acoplamiento.
-- Accesibilidad y UX básica (focus, mensajes, deshabilitado de acciones durante carga).
-- Calidad visual consistente con los estilos Dragon Ball del proyecto.
-
-## Pruebas manuales mínimas
-- Cambiar de saga y verificar que los personajes coincidan con la saga esperada.
-- Forzar varios "Nuevo Personaje" para validar la aleatoriedad.
-- Ingresar respuesta correcta e incorrecta y observar cambios en feedback y Poder de Pelea.
-- Refrescar la página y confirmar persistencia del Poder de Pelea e historial.
-- Abrir los modales de Pista e Historial y verificar su contenido.
-- Probar con sagas que puedan tener pocos personajes disponibles.
-
-## Bonificaciones (opcionales)
-- Normalizar entradas del usuario (trimming, manejo de espacios, tolerar variaciones de nombres).
-- Modo contrarreloj o límite de intentos por personaje.
-- Sonidos o animaciones sutiles al acertar o errar.
-- Mostrar información adicional del personaje en las pistas (poder de pelea, técnicas especiales).
-- Implementar sistema de niveles de dificultad basado en la rareza del personaje.
-
-## Consideraciones especiales
-- La API de Dragon Ball puede tener limitaciones de rate limiting, maneja esto apropiadamente.
-- Algunos personajes pueden no tener imagen disponible, implementa un fallback.
-- Los nombres de personajes pueden tener variaciones (ej: "Goku" vs "Son Goku"), considera esto en la validación.
-
-## Entrega
-- Implementa toda la solución en `js/app.js` sin fragmentos de código en este `readme.md`.
-- No se aceptan librerías externas de JS.
-- Asegúrate de que el proyecto se abra correctamente en un servidor estático y que la API responda.
+1. Consultar el listado de personajes y sus transformaciones desde el servidor backend local (`/api/personajes` o `/api/transformaciones`).
+2. Filtrar personajes por nombre (búsqueda en tiempo real) y por raza (Saiyan, Humano, Namekuseijin, Androide, etc.).
+3. Renderizar las tarjetas de personajes en el DOM con sus atributos clave (nombre, raza, ki, maxKi, imagen).
+4. Permitir seleccionar dos guerreros para comparar sus niveles de ki y declarar al ganador.
+5. Persistir el historial de combates/duelos en el navegador mediante `localStorage` y permitir su limpieza interactiva.
 
 ---
-Créditos: Datos provistos por [Dragon Ball API](https://dragonball-api.com/).
+
+## 📌 Tabla de Entregas / Issues de GitHub
+
+Cada entrega se corresponde con un **issue automático** en tu repositorio de GitHub. Para cerrar cada issue automáticamente, incluye el commit sugerido exacto al subir tu solución a la rama principal (`main`).
+
+| Entrega | Tarea a Realizar                                                                                                | Commit Sugerido                                                       |
+| :------ | :-------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| **#1**  | Vincular `css/styles.css` y `js/script.js` en `index.html`.                                                     | `feat(html): vincular css y script js al html`                        |
+| **#2**  | Consumir la API local (`/api/personajes`) usando `fetch` y `async/await`.                                       | `feat(js): consumir api de personajes con fetch y async await`        |
+| **#3**  | Renderizar dinámicamente las tarjetas de personajes y poblar el filtro de razas en el DOM.                      | `feat(js): renderizar tarjetas de personajes y filtros en el dom`     |
+| **#4**  | Implementar filtrado en tiempo real y la arena de combate comparando niveles de Ki.                             | `feat(js): implementar filtrado y arena de combate de ki`             |
+| **#5**  | Persistir los duelos en `localStorage`, mostrar el historial y permitir su limpieza con `#btnLimpiarHistorial`. | `feat(js): persistir y gestionar historial de duelos en localstorage` |
+
+---
+
+## 🛠️ Especificación Técnica y Requerimientos
+
+### 1. Servidor Backend Local
+
+El servidor Express provisto corre en el puerto `3000` con CORS habilitado:
+
+- **`GET http://localhost:3000/api/personajes`**: Devuelve la lista de guerreros Z y villanos.
+- **`GET http://localhost:3000/api/transformaciones`**: Devuelve las transformaciones disponibles.
+
+Para iniciar el servidor backend:
+
+```bash
+npm start
+```
+
+### 2. Elementos Clave del DOM
+
+- **`#inputBusqueda`**: Input de texto para filtrar por nombre en tiempo real.
+- **`#filtroRaza`**: `<select>` para filtrar por raza (Saiyan, Namekiano, Androide, etc.).
+- **`#contenedorPersonajes`**: Contenedor donde se renderizan las tarjetas de personajes (`.card-personaje`).
+- **`#luchador1`** y **`#luchador2`**: Selectores para elegir los personajes que competirán.
+- **`#btnPelear`**: Botón para ejecutar la batalla y determinar el ganador según el Ki numérico.
+- **`#resultadoCombate`**: Contenedor donde se muestra el resultado del combate.
+- **`#historialLista`**: Lista `<ul>` donde se registran las batallas guardadas.
+- **`#btnLimpiarHistorial`**: Botón para vaciar el historial en `localStorage`.
+
+### 3. Almacenamiento Local (`localStorage`)
+
+- **Clave obligatoria**: `'dragonball_combates'`
+- **Estructura**: Arreglo de objetos con `{ luchador1, luchador2, ganador, kiGanador, fecha }`.
+- Utilizar `JSON.stringify()` para guardar y `JSON.parse()` para leer.
+
+---
+
+## 🧪 Comandos de Prueba y Autoevaluación
+
+Antes de entregar, podés autoevaluar tu trabajo localmente:
+
+```bash
+# Ejecutar todas las pruebas automáticas
+npm test
+
+# Ejecutar una prueba individual
+npm run test:link
+npm run test:fetch
+npm run test:render
+npm run test:events
+npm run test:storage
+
+# Validar estilo y calidad de código
+npm run lint
+npm run format:check
+```
+
+---
+
+## 🚀 Instrucciones para la Ejecución Local
+
+1. Instalar dependencias:
+   ```bash
+   npm install
+   ```
+2. Iniciar el servidor local:
+   ```bash
+   npm start
+   ```
+3. Abrir `index.html` en el navegador (usando la extensión **Live Server** de VS Code).
+4. Abrir la consola de herramientas de desarrollador (**F12**) para verificar peticiones de red y depurar posibles errores.
