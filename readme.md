@@ -1,16 +1,16 @@
-# 🐉 Examen: Buscador y Comparador de Personajes de Dragon Ball con JavaScript
+# 🐉 Examen: Dragon Ball Quiz con JavaScript
 
 ## 📋 Objetivo del Examen
 
-En este examen práctico deberás desarrollar una **aplicación web interactiva para buscar, filtrar y comparar personajes del universo de Dragon Ball**, conectando una interfaz frontend desarrollada con **HTML, CSS y JavaScript Vanilla** a un **servidor backend local en Node.js/Express**.
+En este examen práctico deberás desarrollar una **aplicación web interactiva de quiz temático de Dragon Ball**, conectando una interfaz frontend desarrollada con **HTML, CSS y JavaScript Vanilla** a un **servidor backend local en Node.js/Express**.
 
-La aplicación debe permitir:
+La aplicación muestra la **silueta de un personaje** y el alumno debe adivinar su nombre. Funcionalidades:
 
-1. Consultar el listado de personajes y sus transformaciones desde el servidor backend local (`/api/personajes` o `/api/transformaciones`).
-2. Filtrar personajes por nombre (búsqueda en tiempo real) y por raza (Saiyan, Humano, Namekuseijin, Androide, etc.).
-3. Renderizar las tarjetas de personajes en el DOM con sus atributos clave (nombre, raza, ki, maxKi, imagen).
-4. Permitir seleccionar dos guerreros para comparar sus niveles de ki y declarar al ganador.
-5. Persistir el historial de combates/duelos en el navegador mediante `localStorage` y permitir su limpieza interactiva.
+1. Consultar personajes desde el servidor backend local (`/api/personajes?saga=...&random=true`) y las sagas disponibles (`/api/sagas`).
+2. Mostrar la silueta del personaje en `#characterImage` (aplicando la clase `.silueta` con filtro CSS) y al adivinar correctamente revelar la imagen real.
+3. Renderizar la imagen del guerrero, el feedback de acierto/error y el contenido de los modales de pista e historial en el DOM.
+4. Implementar la lógica del quiz: validar la respuesta comparando con `toLowerCase()`/`trim()`, sumar puntos al `#score` ("Poder de Pelea"), filtrar personajes por saga con `#sagaSelector` y mostrar pistas desde el modal `#modalPista`.
+5. Persistir el historial de partidas y el score en `localStorage` y permitir su limpieza con `#btnLimpiarHistorial`.
 
 ---
 
@@ -18,13 +18,13 @@ La aplicación debe permitir:
 
 Cada entrega se corresponde con un **issue automático** en tu repositorio de GitHub. Para cerrar cada issue automáticamente, incluye el commit sugerido exacto al subir tu solución a la rama principal (`main`).
 
-| Entrega | Tarea a Realizar                                                                                                | Commit Sugerido                                                       |
-| :------ | :-------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
-| **#1**  | Vincular `css/styles.css` y `js/script.js` en `index.html`.                                                     | `feat(html): vincular css y script js al html`                        |
-| **#2**  | Consumir la API local (`/api/personajes`) usando `fetch` y `async/await`.                                       | `feat(js): consumir api de personajes con fetch y async await`        |
-| **#3**  | Renderizar dinámicamente las tarjetas de personajes y poblar el filtro de razas en el DOM.                      | `feat(js): renderizar tarjetas de personajes y filtros en el dom`     |
-| **#4**  | Implementar filtrado en tiempo real y la arena de combate comparando niveles de Ki.                             | `feat(js): implementar filtrado y arena de combate de ki`             |
-| **#5**  | Persistir los duelos en `localStorage`, mostrar el historial y permitir su limpieza con `#btnLimpiarHistorial`. | `feat(js): persistir y gestionar historial de duelos en localstorage` |
+| Entrega | Tarea a Realizar                                                                                                   | Commit Sugerido                                                          |
+| :------ | :----------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------- |
+| **#1**  | Vincular `css/styles.css` y `js/script.js` en `index.html`.                                                        | `feat(html): vincular css y script js al html`                           |
+| **#2**  | Consumir la API local (`/api/personajes?random=true`) usando `fetch` y `async/await`.                              | `feat(js): consumir api de personajes con fetch y async await`           |
+| **#3**  | Renderizar la imagen del guerrero en `#characterImage`, el feedback en `#feedback` y los modales en el DOM.        | `feat(js): renderizar imagen del guerrero y modales en el dom`           |
+| **#4**  | Implementar validación de respuesta, cálculo de Poder de Pelea, filtro por saga y apertura/cierre de modales.      | `feat(js): implementar logica del quiz y filtrado por saga`              |
+| **#5**  | Persistir el historial de partidas en `localStorage`, mostrarlo en el modal y permitir su limpieza.                | `feat(js): persistir y gestionar historial de partidas en localstorage`  |
 
 ---
 
@@ -34,8 +34,12 @@ Cada entrega se corresponde con un **issue automático** en tu repositorio de Gi
 
 El servidor Express provisto corre en el puerto `3000` con CORS habilitado:
 
-- **`GET http://localhost:3000/api/personajes`**: Devuelve la lista de guerreros Z y villanos.
-- **`GET http://localhost:3000/api/transformaciones`**: Devuelve las transformaciones disponibles.
+- **`GET http://localhost:3000/api/personajes`**: Devuelve la lista completa de personajes.
+- **`GET http://localhost:3000/api/personajes?saga=dragon-ball-z`**: Filtra personajes por saga.
+- **`GET http://localhost:3000/api/personajes?random=true`**: Devuelve un personaje aleatorio (objeto individual, no array).
+- **`GET http://localhost:3000/api/personajes?saga=dragon-ball-z&random=true`**: Personaje aleatorio de una saga específica.
+- **`GET http://localhost:3000/api/personajes/:id`**: Devuelve un personaje por ID numérico o por nombre.
+- **`GET http://localhost:3000/api/sagas`**: Devuelve la lista de sagas disponibles (`{ id, nombre }`).
 
 Para iniciar el servidor backend:
 
@@ -45,20 +49,35 @@ npm start
 
 ### 2. Elementos Clave del DOM
 
-- **`#inputBusqueda`**: Input de texto para filtrar por nombre en tiempo real.
-- **`#filtroRaza`**: `<select>` para filtrar por raza (Saiyan, Namekiano, Androide, etc.).
-- **`#contenedorPersonajes`**: Contenedor donde se renderizan las tarjetas de personajes (`.card-personaje`).
-- **`#luchador1`** y **`#luchador2`**: Selectores para elegir los personajes que competirán.
-- **`#btnPelear`**: Botón para ejecutar la batalla y determinar el ganador según el Ki numérico.
-- **`#resultadoCombate`**: Contenedor donde se muestra el resultado del combate.
-- **`#historialLista`**: Lista `<ul>` donde se registran las batallas guardadas.
+- **`#sagaSelector`**: `<select>` para filtrar personajes por saga (Dragon Ball, Z, GT, Super).
+- **`#score`**: Elemento `<h2>` que muestra el Poder de Pelea acumulado.
+- **`#btnNuevo`**: Botón para cargar un nuevo guerrero aleatorio.
+- **`#btnPista`**: Botón para abrir el modal de pista (`#modalPista`).
+- **`#btnHistorial`**: Botón para abrir el modal de historial (`#modalHistorial`).
+- **`#characterImage`**: Imagen del guerrero con clase `.silueta` (filtro CSS negro) que se revela al acertar.
+- **`#formQuiz`**: Formulario con el input de respuesta y el botón de confirmación.
+- **`#guessInput`**: Input de texto donde el alumno escribe el nombre del guerrero.
+- **`#confirmarRespuesta`**: Botón submit del formulario para validar la respuesta.
+- **`#feedback`**: Párrafo donde se muestra si la respuesta fue correcta o incorrecta.
+- **`#modalPista`** / **`#hintContent`**: Modal y contenedor del contenido de la pista (ej. raza, ki, etc.).
+- **`#modalHistorial`** / **`#historyContainer`**: Modal y contenedor donde se listan las partidas guardadas.
 - **`#btnLimpiarHistorial`**: Botón para vaciar el historial en `localStorage`.
+- **`.cerrar-modal`**: Botones para cerrar los modales (clase compartida).
 
-### 3. Almacenamiento Local (`localStorage`)
+### 3. Lógica del Quiz
+
+- Al hacer click en `#btnNuevo`, se consulta `/api/personajes?saga=<saga>&random=true` y se muestra la silueta.
+- El alumno escribe el nombre en `#guessInput` y envía el formulario `#formQuiz`.
+- La validación compara la respuesta con `toLowerCase()` y `trim()`.
+- Si acierta: se revela la imagen (remover clase `.silueta`), se suma al `#score` y se registra la partida.
+- Si falla: se muestra un mensaje de error en `#feedback`.
+
+### 4. Almacenamiento Local (`localStorage`)
 
 - **Clave obligatoria**: `'dragonball_combates'`
-- **Estructura**: Arreglo de objetos con `{ luchador1, luchador2, ganador, kiGanador, fecha }`.
+- **Estructura**: Arreglo de objetos con `{ personaje, adivinado (boolean), score, fecha }`.
 - Utilizar `JSON.stringify()` para guardar y `JSON.parse()` para leer.
+- `#btnLimpiarHistorial` debe usar `removeItem()` o `clear()` para limpiar el historial.
 
 ---
 
